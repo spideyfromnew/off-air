@@ -36,8 +36,8 @@ Prerequisites:
 - ~4 GB free RAM for inference, ~2 GB disk for models
 
 ```bash
-git clone https://github.com/ops63/offair.git
-cd offair
+git clone https://github.com/spideyfromnew/off-air.git
+cd off-air
 npm install
 ```
 
