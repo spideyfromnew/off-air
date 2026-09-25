@@ -1,0 +1,7 @@
+node_modules/
+data/
+.tmp-sample/
+*.log
+.DS_Store
+Thumbs.db
+.freebuff/
