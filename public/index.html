@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>OFF/AIR — air-gapped interview desk</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header>
+    <div class="logo">OFF<span>/</span>AIR</div>
+    <div class="tagline">Every word stays on this machine.</div>
+    <form id="searchForm" class="search">
+      <input type="text" id="searchInput" placeholder="Search across all interviews…" autocomplete="off" />
+      <button type="submit">Search</button>
+    </form>
+    <div class="badge" title="All inference runs locally via QVAC — no cloud AI">● LOCAL-ONLY</div>
+  </header>
+
+  <main>
+    <aside>
+      <form id="addForm">
+        <h2>New interview</h2>
+        <input type="text" id="nameInput" placeholder="Interview name" maxlength="80" />
+        <input type="file" id="fileInput" accept=".wav" required />
+        <select id="whisperSelect">
+          <option value="whisper-base" selected>Whisper base q8 — fast (~80 MB)</option>
+          <option value="whisper-tiny">Whisper tiny — fastest (~75 MB)</option>
+          <option value="whisper-turbo">Whisper large-v3-turbo — best (~1.5 GB)</option>
+        </select>
+        <button type="submit" class="primary">Transcribe on-device</button>
+        <p class="hint">WAV 16 kHz mono recommended. Models download once, then run offline.</p>
+      </form>
+      <div class="job" id="addJob" hidden>
+        <div class="job-msg"></div>
+        <div class="bar"><i></i></div>
+      </div>
+      <nav id="interviewList" aria-label="Interviews"></nav>
+    </aside>
+
+    <section id="empty" class="content">
+      <div class="hero">
+        <h1>Drop an interview.<br />Get a safe copy.</h1>
+        <ol>
+          <li><strong>Transcribe</strong> — Whisper runs on your machine. Source audio is never uploaded.</li>
+          <li><strong>Redact</strong> — a local LLM flags names, employers and numbers; you approve every redaction.</li>
+          <li><strong>Share</strong> — export the safe copy, or search across everything you've ever indexed.</li>
+        </ol>
+        <p class="why">Cloud transcription is a subpoena risk. OffAir never lets a source's voice leave the machine — powered by QVAC on-device AI.</p>
+      </div>
+    </section>
+
+    <section id="detail" class="content" hidden>
+      <div class="detail-head">
+        <h1 id="detailName"></h1>
+        <div class="meta" id="detailMeta"></div>
+        <div class="actions">
+          <button id="btnLlmRedact">Run AI redaction scan</button>
+          <button id="btnBrief">Generate brief</button>
+          <button id="btnIngest">Add to search index</button>
+          <a id="btnExport" class="button" href="#">Download safe copy</a>
+        </div>
+      </div>
+      <div class="job" id="detailJob" hidden>
+        <div class="job-msg"></div>
+        <div class="bar"><i></i></div>
+      </div>
+      <div class="tabs">
+        <button data-tab="raw" class="active">Raw transcript</button>
+        <button data-tab="safe">Safe copy <span id="findingCount" class="pill" hidden></span></button>
+        <button data-tab="brief">Brief</button>
+      </div>
+      <div id="tab-raw" class="tab active"></div>
+      <div id="tab-safe" class="tab"></div>
+      <div id="tab-brief" class="tab"></div>
+    </section>
+
+    <section id="searchPanel" class="content" hidden>
+      <div class="detail-head">
+        <h1>Cross-interview search</h1>
+        <button id="btnCloseSearch" class="ghost">← Back</button>
+      </div>
+      <div class="job" id="searchJob" hidden>
+        <div class="job-msg"></div>
+        <div class="bar"><i></i></div>
+      </div>
+      <div id="searchAnswer" class="answer"></div>
+      <div id="searchHits"></div>
+    </section>
+  </main>
+
+  <footer>
+    <div id="modelChips"></div>
+    <div class="foot-note">QVAC on-device · zero cloud calls · no API keys</div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
