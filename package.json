@@ -1,0 +1,21 @@
+{
+  "name": "offair",
+  "version": "1.0.0",
+  "description": "Air-gapped interview desk for journalists: on-device transcription, redaction and search via QVAC. No cloud. No uploads. No API keys.",
+  "type": "module",
+  "license": "MIT",
+  "author": "ops63",
+  "engines": {
+    "node": ">=22.17.0"
+  },
+  "scripts": {
+    "start": "node server/index.js",
+    "sample": "powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/make-sample.ps1 && node scripts/merge-wav.mjs",
+    "smoke": "node scripts/smoke-test.mjs"
+  },
+  "dependencies": {
+    "@qvac/sdk": "^0.19.1",
+    "express": "^5.1.0",
+    "multer": "^2.0.2"
+  }
+}
